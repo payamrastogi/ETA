@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033Template/ETA_CS9033/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/ic_launcher.png",
+        "source": "/Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033Template/ETA_CS9033/app/src/main/res/drawable-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/ETA_CS9033_Rastogi_Payam/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/ic_launcher.png",
+        "source": "/Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/ETA_CS9033_Rastogi_Payam/app/src/main/res/drawable-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/ic_launcher.png",
+        "source": "/Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/res/drawable-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/payamrastogi/Downloads/ETA_CS9033Template/ETA_CS9033/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/ic_launcher.png",
+        "source": "/Users/payamrastogi/Downloads/ETA_CS9033Template/ETA_CS9033/app/src/main/res/drawable-hdpi/ic_launcher.png"
+    }
+]
