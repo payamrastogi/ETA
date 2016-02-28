@@ -27,13 +27,13 @@ public class Person implements Parcelable {
 	 * Create a Person model object from a Parcel. This
 	 * function is called via the Parcelable creator.
 	 * 
-	 * @param p The Parcel used to populate the
+	 * @param in The Parcel used to populate the
 	 * Model fields.
 	 */
-	public Person(Parcel p) {
+	public Person(Parcel in) {
 		// TODO - fill in here
-		name = p.readString();
-		location = p.readParcelable(Location.class.getClassLoader());
+		name = in.readString();
+		location = in.readParcelable(Location.class.getClassLoader());
 	}
 	
 	/**
