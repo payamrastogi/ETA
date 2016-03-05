@@ -14,7 +14,7 @@ public class ViewTripActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		setContentView(R.layout.activity_view_trip);
 		// TODO - fill in here
 		
 		Trip trip = getTrip(getIntent());
@@ -25,18 +25,16 @@ public class ViewTripActivity extends Activity {
 	 * Create a Trip object via the recent trip that
 	 * was passed to TripViewer via an Intent.
 	 * 
-	 * @param i The Intent that contains
+	 * @param intent The Intent that contains
 	 * the most recent trip data.
 	 * 
 	 * @return The Trip that was most recently
 	 * passed to TripViewer, or null if there
 	 * is none.
 	 */
-	public Trip getTrip(Intent i) {
-		
-		// TODO - fill in here
-		
-		return null;
+	public Trip getTrip(Intent intent) {
+		Trip trip = (Trip)intent.getParcelableExtra("recentTrip");
+		return trip;
 	}
 
 	/**
