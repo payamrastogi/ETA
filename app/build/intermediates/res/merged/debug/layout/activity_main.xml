@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="view trip"
         android:id="@+id/btViewTrip"
-        android:onClick="startViewTripActvity"
+        android:onClick="startViewTripActivity"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />

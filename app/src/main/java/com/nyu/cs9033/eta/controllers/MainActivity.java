@@ -27,7 +27,7 @@ public class MainActivity extends Activity {
 	 * a Trip.
 	 */
 	public void startCreateTripActivity(View view){
-		Intent intent = new Intent(MainActivity.this, ViewTripActivity.class);
+		Intent intent = new Intent(MainActivity.this, CreateTripActivity.class);
 		startActivity(intent);
 	}
 	
