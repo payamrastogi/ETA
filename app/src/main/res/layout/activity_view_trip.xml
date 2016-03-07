@@ -1,20 +1,59 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tableLayout1"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent">
 
-    <TableRow
-        android:id="@+id/tableRow1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="5dip" >
-
+    <TableRow>
         <TextView
-            android:id="@+id/tvTripName"
-            android:text="Trip Name"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            />
-
+            android:id="@+id/title"
+            android:text="Recent Trip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"/>
     </TableRow>
 
+    <TableRow
+        android:id="@+id/nameRow"
+        android:visibility="invisible">
+        <TextView
+            android:text="Trip Name : "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1" />
+        <TextView
+            android:id="@+id/viewName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/descRow"
+        android:visibility="invisible">
+        <TextView
+            android:text="Description : "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1" />
+        <TextView
+            android:id="@+id/viewDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/dateRow"
+        android:visibility="invisible">
+        <TextView
+            android:text="Date : "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1" />
+        <TextView
+            android:id="@+id/viewDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5" />
+
+    </TableRow>
 </TableLayout>

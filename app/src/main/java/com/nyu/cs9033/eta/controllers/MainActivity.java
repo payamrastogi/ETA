@@ -6,7 +6,6 @@ import com.nyu.cs9033.eta.R;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.widget.Button;
 import android.view.View;
 
 public class MainActivity extends Activity {
@@ -17,8 +16,6 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-		// TODO - fill in here
 	}
 
 	/**
@@ -28,7 +25,7 @@ public class MainActivity extends Activity {
 	 */
 	public void startCreateTripActivity(View view){
 		Intent intent = new Intent(MainActivity.this, CreateTripActivity.class);
-		startActivity(intent);
+		startActivityForResult(intent, 1);
 	}
 	
 	/**
@@ -58,6 +55,8 @@ public class MainActivity extends Activity {
 	 */
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO - fill in here
+		Trip result = data.getParcelableExtra("recentTrip");
+		if (result != null)
+			recentTrip = result;
 	}
 }
