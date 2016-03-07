@@ -6,19 +6,31 @@ import com.nyu.cs9033.eta.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 public class ViewTripActivity extends Activity {
 
 	private static final String TAG = "ViewTripActivity";
+	private TextView tripDescriptiontTxt;
+	private TextView tripNameTxt;
+	private TextView tripDateTxt;
+	private TextView title;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_trip);
-		// TODO - fill in here
-		
+		findViewById();
 		Trip trip = getTrip(getIntent());
 		viewTrip(trip);
+	}
+
+	public void findViewById() {
+		title = (TextView) findViewById(R.id.title);
+		tripNameTxt = (TextView) findViewById(R.id.viewName);
+		tripDescriptiontTxt = (TextView) findViewById(R.id.viewDescription);
+		tripDateTxt = (TextView) findViewById(R.id.viewDate);
 	}
 	
 	/**
@@ -44,7 +56,19 @@ public class ViewTripActivity extends Activity {
 	 * populate the View.
 	 */
 	public void viewTrip(Trip trip) {
-		
-		// TODO - fill in here
+		if (trip !=null) {
+			title.setText("Recent Trip");
+			tripNameTxt.setText(trip.getName());
+			tripDescriptiontTxt.setText(trip.getDescription());
+			tripDateTxt.setText(trip.getDate());
+			findViewById(R.id.nameRow).setVisibility(View.VISIBLE);
+			findViewById(R.id.descRow).setVisibility(View.VISIBLE);
+			findViewById(R.id.dateRow).setVisibility(View.VISIBLE);
+		} else {
+			title.setText("No Recent Trip");
+			findViewById(R.id.nameRow).setVisibility(View.INVISIBLE);
+			findViewById(R.id.descRow).setVisibility(View.INVISIBLE);
+			findViewById(R.id.dateRow).setVisibility(View.INVISIBLE);
+		}
 	}
 }

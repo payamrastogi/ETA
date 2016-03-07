@@ -8,6 +8,8 @@ public class Trip implements Parcelable {
 	// Member fields should exist here, what else do you need for a trip?
 	// Please add additional fields
 	private String name;
+	private String description;
+	private String date;
 	
 	/**
 	 * Parcelable creator. Do not modify this function.
@@ -30,8 +32,9 @@ public class Trip implements Parcelable {
 	 * Model fields.
 	 */
 	public Trip(Parcel p) {
-		
-		// TODO - fill in here
+		this.name = p.readString();
+		this.description = p.readString();
+		this.date = p.readString();
 	}
 	
 	/**
@@ -40,9 +43,10 @@ public class Trip implements Parcelable {
 	 * @param name  Add arbitrary number of arguments to
 	 * instantiate Trip class based on member variables.
 	 */
-	public Trip(String name) {
-		
-		// TODO - fill in here, please note you must have more arguments here
+	public Trip(String name, String description, String date) {
+		this.name = name;
+		this.description = description;
+		this.date = date;
 	}
 
 	/**
@@ -60,8 +64,9 @@ public class Trip implements Parcelable {
 	 */
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		
-		// TODO - fill in here 
+		dest.writeString(name);
+		dest.writeString(description);
+		dest.writeString(date);
 	}
 	
 	/**
@@ -75,5 +80,17 @@ public class Trip implements Parcelable {
 	public int describeContents() {
 		// Do not implement!
 		return 0;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public String getDate() {
+		return date;
 	}
 }
