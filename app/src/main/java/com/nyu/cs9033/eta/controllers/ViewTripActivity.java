@@ -9,16 +9,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-public class ViewTripActivity extends Activity {
+public class ViewTripActivity extends Activity
+{
 
 	private static final String TAG = "ViewTripActivity";
-	private TextView tripDescriptiontTxt;
-	private TextView tripNameTxt;
-	private TextView tripDateTxt;
-	private TextView title;
+	private TextView txtTripDescription;
+	private TextView txtTripName;
+	private TextView txtTripDate;
+	private TextView txtTitle;
 	
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_trip);
 		findViewById();
@@ -26,11 +28,12 @@ public class ViewTripActivity extends Activity {
 		viewTrip(trip);
 	}
 
-	public void findViewById() {
-		title = (TextView) findViewById(R.id.title);
-		tripNameTxt = (TextView) findViewById(R.id.viewName);
-		tripDescriptiontTxt = (TextView) findViewById(R.id.viewDescription);
-		tripDateTxt = (TextView) findViewById(R.id.viewDate);
+	public void findViewById()
+	{
+		txtTitle = (TextView) findViewById(R.id.title);
+		txtTripName = (TextView) findViewById(R.id.viewName);
+		txtTripDescription = (TextView) findViewById(R.id.viewDescription);
+		txtTripDate = (TextView) findViewById(R.id.viewDate);
 	}
 	
 	/**
@@ -44,7 +47,8 @@ public class ViewTripActivity extends Activity {
 	 * passed to TripViewer, or null if there
 	 * is none.
 	 */
-	public Trip getTrip(Intent intent) {
+	public Trip getTrip(Intent intent)
+	{
 		Trip trip = (Trip)intent.getParcelableExtra("recentTrip");
 		return trip;
 	}
@@ -55,20 +59,24 @@ public class ViewTripActivity extends Activity {
 	 * @param trip The Trip model used to
 	 * populate the View.
 	 */
-	public void viewTrip(Trip trip) {
-		if (trip !=null) {
-			title.setText("Recent Trip");
-			tripNameTxt.setText(trip.getName());
-			tripDescriptiontTxt.setText(trip.getDescription());
-			tripDateTxt.setText(trip.getDate());
-			findViewById(R.id.nameRow).setVisibility(View.VISIBLE);
-			findViewById(R.id.descRow).setVisibility(View.VISIBLE);
-			findViewById(R.id.dateRow).setVisibility(View.VISIBLE);
-		} else {
-			title.setText("No Recent Trip");
-			findViewById(R.id.nameRow).setVisibility(View.INVISIBLE);
-			findViewById(R.id.descRow).setVisibility(View.INVISIBLE);
-			findViewById(R.id.dateRow).setVisibility(View.INVISIBLE);
+	public void viewTrip(Trip trip)
+	{
+		if (trip !=null)
+		{
+			txtTitle.setText("Recent Trip");
+			txtTripName.setText(trip.getName());
+			txtTripDescription.setText(trip.getDescription());
+			txtTripDate.setText(trip.getDate());
+			findViewById(R.id.rowTripName).setVisibility(View.VISIBLE);
+			findViewById(R.id.rowTripDescription).setVisibility(View.VISIBLE);
+			findViewById(R.id.rowTripDate).setVisibility(View.VISIBLE);
+		}
+		else
+		{
+			txtTitle.setText("No Recent Trip");
+			findViewById(R.id.rowTripName).setVisibility(View.INVISIBLE);
+			findViewById(R.id.rowTripDescription).setVisibility(View.INVISIBLE);
+			findViewById(R.id.rowTripDate).setVisibility(View.INVISIBLE);
 		}
 	}
 }

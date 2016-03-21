@@ -18,35 +18,38 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class CreateTripActivity extends Activity implements View.OnClickListener{
+public class CreateTripActivity extends Activity implements View.OnClickListener
+{
 	
 	private static final String TAG = "CreateTripActivity";
-	private EditText tripDescriptiontTxt;
-	private EditText tripNameTxt;
-	private EditText tripDateTxt;
-	private Button saveBtn;
-	private Button cancelBtn;
+	private EditText txtTripDescription;
+	private EditText txtTripName;
+	private EditText txtTripDate;
+	private Button btnSave;
+	private Button btnCancel;
 	private DatePickerDialog datePickerDialog;
 	private SimpleDateFormat dateFormatter;
 	private Trip recentTrip;
 	
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_trip);
 		dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 		findViewsById();
 	}
 
-	public void findViewsById() {
-		tripNameTxt = (EditText) findViewById(R.id.name);
-		tripDescriptiontTxt = (EditText) findViewById(R.id.description);
-		tripDateTxt = (EditText) findViewById(R.id.date);
-		tripDateTxt.setInputType(InputType.TYPE_NULL);
-		saveBtn = (Button) findViewById(R.id.saveBtn);
-		saveBtn.setOnClickListener(this);
-		cancelBtn = (Button) findViewById(R.id.cancelBtn);
-		cancelBtn.setOnClickListener(this);
+	public void findViewsById()
+	{
+		txtTripName = (EditText) findViewById(R.id.txtTripName);
+		txtTripDescription = (EditText) findViewById(R.id.txtTripDescription);
+		txtTripDate = (EditText) findViewById(R.id.txtTripDate);
+		txtTripDate.setInputType(InputType.TYPE_NULL);
+		btnSave = (Button) findViewById(R.id.btnSave);
+		btnSave.setOnClickListener(this);
+		btnCancel = (Button) findViewById(R.id.btnCancel);
+		btnCancel.setOnClickListener(this);
 		setDateTimeField();
 	}
 	/**
@@ -56,10 +59,11 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 	 * @return The Trip as represented
 	 * by the View.
 	 */
-	public Trip createTrip() {
-		String tripName = tripNameTxt.getText().toString();
-		String tripDescription = tripDescriptiontTxt.getText().toString();
-		String tripDate = tripDateTxt.getText().toString();
+	public Trip createTrip()
+	{
+		String tripName = txtTripName.getText().toString();
+		String tripDescription = txtTripDescription.getText().toString();
+		String tripDate = txtTripDate.getText().toString();
 
 		return new Trip(tripName, tripDescription, tripDate);
 	}
@@ -76,7 +80,8 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 	 * @return whether the Trip was successfully 
 	 * saved.
 	 */
-	public boolean saveTrip(Trip trip) {
+	public boolean saveTrip(Trip trip)
+	{
 
 		Intent result = new Intent();
 		result.putExtra("recentTrip",recentTrip);
@@ -97,20 +102,22 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 	 * the previous activity without a result
 	 * using finish() and setResult().
 	 */
-	public void cancelTrip() {
+	public void cancelTrip()
+	{
 		Intent i = new Intent(getBaseContext(), MainActivity.class);
 		startActivity(i);
 	}
 
-	private void setDateTimeField() {
-		tripDateTxt.setOnClickListener(new View.OnClickListener() {
+	private void setDateTimeField()
+	{
+		txtTripDate.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				datePickerDialog.show();
 			}
 		});
 
-		tripDateTxt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+		txtTripDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 			@Override
 			public void onFocusChange(View view, boolean b) {
 				if (b) {
@@ -118,56 +125,56 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 				}
 			}
 		});
-		tripDateTxt.setKeyListener(null);
+		txtTripDate.setKeyListener(null);
 		Calendar newCalendar = Calendar.getInstance();
 		datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
 			public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 				Calendar newDate = Calendar.getInstance();
 				newDate.set(year, monthOfYear, dayOfMonth);
-				tripDateTxt.setText(dateFormatter.format(newDate.getTime()));
+				txtTripDate.setText(dateFormatter.format(newDate.getTime()));
 			}
 		},newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
 	}
 
 	@Override
-	public void onClick(View v) {
+	public void onClick(View v)
+	{
 
-		switch (v.getId()) {
+		switch (v.getId())
+		{
 
-			case R.id.cancelBtn:
-				cancelTrip();
-				break;
+			case R.id.btnCancel:cancelTrip();
+								break;
 
-			case R.id.saveBtn:
-				String tripName = tripNameTxt.getText().toString();
-				String tripDescription = tripDescriptiontTxt.getText().toString();
-				String tripDate = tripDateTxt.getText().toString();
-
-				boolean invalid = false;
-
-				if (tripName.equals("")) {
-					invalid = true;
-					Toast.makeText(getApplicationContext(), "Enter Trip Name",
-							Toast.LENGTH_SHORT).show();
-				} else if (tripDescription.equals("")) {
-					invalid = true;
-					Toast.makeText(getApplicationContext(),
-							"Enter Trip Description", Toast.LENGTH_SHORT)
-							.show();
-				} else if (tripDate.equals("")) {
-					invalid = true;
-					Toast.makeText(getApplicationContext(),
-							"Enter your Trip Date", Toast.LENGTH_SHORT)
-							.show();
-				}
-				else if (invalid == false)
-				{
-					recentTrip = createTrip();
-					saveTrip(recentTrip);
-				}
-
-				break;
+			case R.id.btnSave: 	String tripName = txtTripName.getText().toString();
+								String tripDescription = txtTripDescription.getText().toString();
+								String tripDate = txtTripDate.getText().toString();
+								boolean invalid = false;
+								if (tripName.equals(""))
+								{
+									invalid = true;
+									Toast.makeText(getApplicationContext(), "Enter Trip Name",
+														Toast.LENGTH_SHORT).show();
+								}
+								else if (tripDescription.equals(""))
+								{
+									invalid = true;
+									Toast.makeText(getApplicationContext(),
+											"Enter Trip Description", Toast.LENGTH_SHORT).show();
+								}
+								else if (tripDate.equals(""))
+								{
+									invalid = true;
+									Toast.makeText(getApplicationContext(),
+											"Enter your Trip Date", Toast.LENGTH_SHORT).show();
+								}
+								if (invalid == false)
+								{
+									recentTrip = createTrip();
+									saveTrip(recentTrip);
+								}
+								break;
 		}
 	}
 }
