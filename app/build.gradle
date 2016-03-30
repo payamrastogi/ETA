@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.nyu.cs9033.eta"
-        minSdkVersion 8
+        minSdkVersion 11
         targetSdkVersion 18
     }
 

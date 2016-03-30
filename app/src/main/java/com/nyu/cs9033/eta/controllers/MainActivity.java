@@ -10,7 +10,6 @@ import android.view.View;
 
 public class MainActivity extends Activity
 {
-
 	private static final String TAG = "MainActivity";
 	private Trip recentTrip;
 
@@ -28,6 +27,7 @@ public class MainActivity extends Activity
 	 */
 	public void startCreateTripActivity(View view)
 	{
+
 		Intent intent = new Intent(MainActivity.this, CreateTripActivity.class);
 		startActivityForResult(intent, 1);
 	}
@@ -61,8 +61,10 @@ public class MainActivity extends Activity
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		Trip result = data.getParcelableExtra("recentTrip");
-		if (result != null)
-			recentTrip = result;
+		if (data != null) {
+			Trip result = data.getParcelableExtra("recentTrip");
+			if (result != null)
+				recentTrip = result;
+		}
 	}
 }

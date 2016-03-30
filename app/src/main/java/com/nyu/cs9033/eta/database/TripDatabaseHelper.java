@@ -1,22 +1,35 @@
 package com.nyu.cs9033.eta.database;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import 	android.database.sqlite.SQLiteOpenHelper;
+
+import com.nyu.cs9033.eta.models.Location;
+import com.nyu.cs9033.eta.models.Person;
+import com.nyu.cs9033.eta.models.Trip;
+
+import java.util.ArrayList;
+
 /**
  * Created by payamrastogi on 3/21/16.
  */
 public class TripDatabaseHelper extends SQLiteOpenHelper
 {
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "trips";
+    private static final String DATABASE_NAME = "eta.db";
 
     private static final String TABLE_TRIP = "trip";
     private static final String COLUMN_TRIP_ID = "_id"; // convention
+    private static final String COLUMN_TRIP_NAME = "name";
     private static final String COLUMN_TRIP_DATE = "date";
-    private static final String COLUMN_TRIP_DESTINATION = "destination";
+    private static final String COLUMN_TRIP_DESCRIPTION = "description";
+
+    private static final String TABLE_GROUP = "group";
+    private static final String COLUMN_GRP_TRIP_ID = "trip_id";
+    private static final String COLUMN_GRP_PERSON_NAME= "person_name";
 
     private static final String TABLE_LOCATION = "location";
-    private static final String COLUMN_LOC_TRIPID = "trip_id";
+    private static final String COLUMN_LOC_TRIP_ID = "trip_id";
     private static final String COLUMN_LOC_TIMESTAMP = "timestamp";
     private static final String COLUMN_LOC_LAT = "latitude";
     private static final String COLUMN_LOC_LONG = "longitude";
@@ -34,17 +47,22 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
     {
         // create trip table
         db.execSQL("create table " + TABLE_TRIP + "("
-            + COLUMN_TRIP_ID + " integer primary key autoincrement, "
+            + COLUMN_TRIP_ID + " integer primary key autoincrement,"
+            + COLUMN_TRIP_NAME + " text, "
             + COLUMN_TRIP_DATE + " integer, "
-            + COLUMN_TRIP_DESTINATION + " text)");
+            + COLUMN_TRIP_DESCRIPTION + " text)");
         // create location table
         db.execSQL("create table " + TABLE_LOCATION + "("
-            + COLUMN_LOC_TRIPID + " integer references trip(_id), "
-            + COLUMN_LOC_TIMESTAMP + " integer, "
-            + COLUMN_LOC_LAT + " real, "
-            + COLUMN_LOC_LONG + " real, "
-            + COLUMN_LOC_ALT + " real, "
-            + COLUMN_LOC_PROVIDER + " varchar(100))");
+                + COLUMN_LOC_TRIP_ID + " integer references trip(_id), "
+                + COLUMN_LOC_TIMESTAMP + " integer, "
+                + COLUMN_LOC_LAT + " real, "
+                + COLUMN_LOC_LONG + " real, "
+                + COLUMN_LOC_ALT + " real, "
+                + COLUMN_LOC_PROVIDER + " varchar(100))");
+        // create group table
+        db.execSQL("create table " + TABLE_GROUP + "("
+                + COLUMN_GRP_TRIP_ID + " integer references trip(_id), "
+                + COLUMN_GRP_PERSON_NAME + " text");
     }
 
     @Override
@@ -53,8 +71,34 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
         // Drop older table if exists
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRIP);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOCATION);
-
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_GROUP);
         // create tables again
         onCreate(db);
+    }
+
+
+    public boolean insertTrip(Trip trip, ArrayList<Person> persons, Location location)
+    {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_TRIP_NAME, trip.getName());
+        contentValues.put(COLUMN_TRIP_DATE, trip.getDate());
+        contentValues.put(COLUMN_TRIP_DESCRIPTION, trip.getDescription());
+        long id = db.insert(TABLE_TRIP, null, contentValues);
+
+        contentValues = new ContentValues();
+        contentValues.put(COLUMN_LOC_TRIP_ID, id);
+        contentValues.put(COLUMN_LOC_LAT, location.getLatitude());
+        contentValues.put(COLUMN_LOC_LONG, location.getLongitude());
+        db.insert(TABLE_LOCATION, null, contentValues);
+
+        for(Person person: persons)
+        {
+            contentValues = new ContentValues();
+            contentValues.put(COLUMN_GRP_TRIP_ID, id);
+            contentValues.put(COLUMN_GRP_PERSON_NAME, person.getName());
+            db.insert(TABLE_GROUP, null, contentValues);
+        }
+        return true;
     }
 }

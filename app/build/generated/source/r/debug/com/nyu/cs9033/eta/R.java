@@ -18,21 +18,24 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f08000e;
-        public static final int btCreateTrip=0x7f080006;
-        public static final int btViewTrip=0x7f080005;
-        public static final int cancelBtn=0x7f080004;
-        public static final int date=0x7f080002;
-        public static final int dateRow=0x7f08000c;
-        public static final int descRow=0x7f08000a;
-        public static final int description=0x7f080001;
-        public static final int name=0x7f080000;
-        public static final int nameRow=0x7f080008;
-        public static final int saveBtn=0x7f080003;
-        public static final int title=0x7f080007;
-        public static final int viewDate=0x7f08000d;
-        public static final int viewDescription=0x7f08000b;
-        public static final int viewName=0x7f080009;
+        public static final int action_settings=0x7f080011;
+        public static final int btCreateTrip=0x7f080009;
+        public static final int btViewTrip=0x7f080008;
+        public static final int btnCancel=0x7f080007;
+        public static final int btnPickContact=0x7f080004;
+        public static final int btnSave=0x7f080006;
+        public static final int rowTripDate=0x7f08000f;
+        public static final int rowTripDescription=0x7f08000d;
+        public static final int rowTripName=0x7f08000b;
+        public static final int searchViewResult=0x7f080005;
+        public static final int tableLayout=0x7f080000;
+        public static final int txtTitle=0x7f08000a;
+        public static final int txtTripDate=0x7f080003;
+        public static final int txtTripDescription=0x7f080002;
+        public static final int txtTripName=0x7f080001;
+        public static final int viewDate=0x7f080010;
+        public static final int viewDescription=0x7f08000e;
+        public static final int viewName=0x7f08000c;
     }
     public static final class layout {
         public static final int activity_create_trip=0x7f030000;
@@ -45,7 +48,8 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f060000;
         public static final int app_name=0x7f060001;
-        public static final int hello_world=0x7f060002;
+        public static final int find_contact=0x7f060002;
+        public static final int hello_world=0x7f060003;
     }
     public static final class style {
         /**  API 11 theme customizations can go here. 

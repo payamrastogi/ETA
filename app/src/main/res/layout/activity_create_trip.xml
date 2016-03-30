@@ -1,91 +1,104 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:id="@+id/tableLayout">
 
-    <TableRow>
+        <TableRow>
+            <TextView
+                android:text="Create Trip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"/>
+
+        <TableRow>
+            <TextView
+                android:text="Trip Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1" />
+            <EditText
+                android:id="@+id/txtTripName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:text="Trip Description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1" />
+            <EditText
+                android:id="@+id/txtTripDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:lines="3"
+                android:gravity="top|left"
+                android:inputType="textMultiLine"
+                android:scrollHorizontally="false"
+                />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <TextView
+                android:text="Trip Date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1" />
+            <EditText
+                android:id="@+id/txtTripDate"
+                android:editable="false"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5" />
+
+        </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent">
+
+        <Button
+            android:id="@+id/btnPickContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pick Contact"
+            android:layout_column="1"/>
         <TextView
-            android:text="Create Trip"
+            android:id="@+id/searchViewResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/hello_world"
             android:layout_column="2"/>
-    </TableRow>
-
-    <TableRow
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"/>
-
-    <TableRow>
-        <TextView
-            android:text="Trip Name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="1" />
-        <EditText
-            android:id="@+id/txtTripName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5" />
-    </TableRow>
-
-    <TableRow>
-        <TextView
-            android:text="Trip Description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="1" />
-        <EditText
-            android:id="@+id/txtTripDescription"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:lines="3"
-            android:gravity="top|left"
-            android:inputType="textMultiLine"
-            android:scrollHorizontally="false"
-            />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-        <TextView
-            android:text="Trip Date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="1" />
-        <EditText
-            android:id="@+id/txtTripDate"
-            android:editable="false"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5" />
 
     </TableRow>
 
-    <TableRow
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </TableRow>
 
-    <TableRow
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Save"
-            android:id="@+id/btnSave"
-            android:layout_column="2" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cancel"
-            android:id="@+id/btnCancel"
-            android:layout_column="2" />
-    </TableRow>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:id="@+id/btnSave"
+                android:layout_column="2" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel"
+                android:id="@+id/btnCancel"
+                android:layout_column="2" />
+        </TableRow>
 
 </TableLayout>

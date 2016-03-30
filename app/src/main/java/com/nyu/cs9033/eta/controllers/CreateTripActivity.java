@@ -6,12 +6,19 @@ import com.nyu.cs9033.eta.R;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -25,15 +32,21 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 	private EditText txtTripDescription;
 	private EditText txtTripName;
 	private EditText txtTripDate;
+	private Button btnPickContact;
 	private Button btnSave;
 	private Button btnCancel;
 	private DatePickerDialog datePickerDialog;
 	private SimpleDateFormat dateFormatter;
 	private Trip recentTrip;
-	
+	private TextView resultText;
+
+
+	private static final int RESULT_PICK_CONTACT = 85500;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
+		//Toast.makeText(getApplicationContext(), "msg msg", Toast.LENGTH_SHORT).show();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_trip);
 		dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
@@ -42,14 +55,18 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 
 	public void findViewsById()
 	{
+		//Toast.makeText(getApplicationContext(), "msg msg 3", Toast.LENGTH_SHORT).show();
 		txtTripName = (EditText) findViewById(R.id.txtTripName);
 		txtTripDescription = (EditText) findViewById(R.id.txtTripDescription);
 		txtTripDate = (EditText) findViewById(R.id.txtTripDate);
 		txtTripDate.setInputType(InputType.TYPE_NULL);
+		btnPickContact = (Button) findViewById(R.id.btnPickContact);
 		btnSave = (Button) findViewById(R.id.btnSave);
 		btnSave.setOnClickListener(this);
 		btnCancel = (Button) findViewById(R.id.btnCancel);
 		btnCancel.setOnClickListener(this);
+		btnPickContact.setOnClickListener(this);
+		resultText = (TextView)findViewById(R.id.searchViewResult);
 		setDateTimeField();
 	}
 	/**
@@ -84,7 +101,7 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 	{
 
 		Intent result = new Intent();
-		result.putExtra("recentTrip",recentTrip);
+		result.putExtra("recentTrip", recentTrip);
 		setResult(RESULT_OK, result);
 		finish();
 		return false;
@@ -140,6 +157,7 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 	@Override
 	public void onClick(View v)
 	{
+		Toast.makeText(getApplicationContext(), "dfdsfdfee", Toast.LENGTH_SHORT).show();
 
 		switch (v.getId())
 		{
@@ -175,6 +193,74 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 									saveTrip(recentTrip);
 								}
 								break;
+			case R.id.btnPickContact:pickContact(v);
+										break;
 		}
 	}
+
+	public void pickContact(View v)
+	{
+		Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
+				ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+		startActivityForResult(contactPickerIntent, RESULT_PICK_CONTACT);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// check whether the result is ok
+		if (resultCode == RESULT_OK) {
+			// Check for the request code, we might be usign multiple startActivityForReslut
+			switch (requestCode) {
+				case RESULT_PICK_CONTACT:
+					contactPicked(data);
+					break;
+			}
+		} else {
+			Log.e("MainActivity", "Failed to pick contact");
+		}
+	}
+
+	private void contactPicked(Intent data) {
+		Cursor cursor = null;
+		try {
+			//String phoneNo = null ;
+			String name = null;
+			// getData() method will have the Content Uri of the selected contact
+			Uri uri = data.getData();
+			//Query the content uri
+			cursor = getContentResolver().query(uri, null, null, null, null);
+			cursor.moveToFirst();
+			// column index of the phone number
+			int  phoneIndex =cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+			// column index of the contact name
+			int  nameIndex =cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+			//phoneNo = cursor.getString(phoneIndex);
+			name = cursor.getString(nameIndex);
+			// Set the value to the textviews
+			//resultText.setText(name);
+			//TableLayout tableLayout = (TableLayout) findViewById(R.id.tableLayout);
+			//TableLayout.LayoutParams tableLayoutParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
+			//EditText myEditText = new EditText(getApplicationContext());
+			//myEditText.setLayoutParams(tableLayoutParams);
+			//tableLayout.addView(myEditText);
+			/* Find Tablelayout defined in main.xml */
+			TableLayout tableLayout = (TableLayout) findViewById(R.id.tableLayout);
+			/* Create a new row to be added. */
+			TableRow tableRow = new TableRow(this);
+			tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
+			/* Create a edit text to be the row-content. */
+			EditText myEditText = new EditText(this);
+			myEditText.setText(name);
+			myEditText.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
+			/* Add Button to row. */
+			tableRow.addView(myEditText);
+			/* Add row to TableLayout. */
+			//tableRow.setBackgroundResource(R.drawable.sf_gradient_03);
+			tableLayout.addView(tableRow, new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
+			resultText.setText(name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }

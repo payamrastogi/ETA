@@ -30,7 +30,7 @@ public class ViewTripActivity extends Activity
 
 	public void findViewById()
 	{
-		txtTitle = (TextView) findViewById(R.id.title);
+		txtTitle = (TextView) findViewById(R.id.txtTitle);
 		txtTripName = (TextView) findViewById(R.id.viewName);
 		txtTripDescription = (TextView) findViewById(R.id.viewDescription);
 		txtTripDate = (TextView) findViewById(R.id.viewDate);

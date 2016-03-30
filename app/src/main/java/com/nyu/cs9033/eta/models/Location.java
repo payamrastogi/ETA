@@ -9,7 +9,8 @@ import android.os.Parcelable;
 public class Location implements Parcelable
 {
     private String name;
-
+    private String longitude;
+    private String latitude;
     /**
      * Parcelable creator. Do not modify this function.
      */
@@ -42,5 +43,25 @@ public class Location implements Parcelable
     public Location(String name)
     {
         this.name = name;
+    }
+
+    public void setLongitude(String longitude)
+    {
+        this.longitude = longitude;
+    }
+
+    public String getLongitude()
+    {
+        return this.longitude;
+    }
+
+    public void setLatitude(String latitude)
+    {
+        this.latitude = latitude;
+    }
+
+    public String getLatitude()
+    {
+        return this.latitude;
     }
 }
