@@ -8,12 +8,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 
-public class MainActivity extends Activity {
-
+public class MainActivity extends Activity
+{
 	private static final String TAG = "MainActivity";
 	private Trip recentTrip;
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 	}
@@ -23,7 +25,9 @@ public class MainActivity extends Activity {
 	 * Activity responsible for creating
 	 * a Trip.
 	 */
-	public void startCreateTripActivity(View view){
+	public void startCreateTripActivity(View view)
+	{
+
 		Intent intent = new Intent(MainActivity.this, CreateTripActivity.class);
 		startActivityForResult(intent, 1);
 	}
@@ -33,8 +37,16 @@ public class MainActivity extends Activity {
 	 * Activity responsible for viewing
 	 * a Trip.
 	 */
-	public void startViewTripActivity(View view){
+	public void startViewTripActivity(View view)
+	{
 		Intent intent = new Intent(MainActivity.this, ViewTripActivity.class);
+		intent.putExtra("recentTrip", recentTrip);
+		startActivity(intent);
+	}
+
+	public void startTripHistoryActivity(View view)
+	{
+		Intent intent = new Intent(MainActivity.this, TripHistoryActivity.class);
 		intent.putExtra("recentTrip", recentTrip);
 		startActivity(intent);
 	}
@@ -54,9 +66,12 @@ public class MainActivity extends Activity {
 	 * 
 	 */
 	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Trip result = data.getParcelableExtra("recentTrip");
-		if (result != null)
-			recentTrip = result;
+	public void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if (data != null) {
+			Trip result = data.getParcelableExtra("recentTrip");
+			if (result != null)
+				recentTrip = result;
+		}
 	}
 }
