@@ -80,6 +80,11 @@ public class Person implements Parcelable {
 		return 0;
 	}
 
+	public Person()
+	{
+		//no argument
+	}
+
 	public void setName(String name)
 	{
 		this.name = name;

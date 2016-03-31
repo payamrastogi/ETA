@@ -18,7 +18,7 @@ import java.util.List;
 public class TripDatabaseHelper extends SQLiteOpenHelper
 {
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "eta.db";
+    private static final String DATABASE_NAME = "data.db";
 
     private static final String TABLE_TRIP = "trip";
     private static final String COLUMN_TRIP_ID = "_id"; // convention
@@ -26,19 +26,18 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
     private static final String COLUMN_TRIP_DATE = "date";
     private static final String COLUMN_TRIP_DESCRIPTION = "description";
 
-    private static final String TABLE_GROUP = "group";
+    private static final String TABLE_GROUP = "persons";
     private static final String COLUMN_GRP_TRIP_ID = "trip_id";
     private static final String COLUMN_GRP_PERSON_NAME= "person_name";
 
     private static final String TABLE_LOCATION = "location";
     private static final String COLUMN_LOC_TRIP_ID = "trip_id";
-    private static final String COLUMN_LOC_TIMESTAMP = "timestamp";
+    private static final String COLUMN_LOC_NAME = "name";
+    private static final String COLUMN_LOC_ADDRESS = "address";
     private static final String COLUMN_LOC_LAT = "latitude";
     private static final String COLUMN_LOC_LONG = "longitude";
     private static final String COLUMN_LOC_ALT = "altitude";
     private static final String COLUMN_LOC_PROVIDER = "provider";
-
-
 
     public TripDatabaseHelper(Context context)
     {
@@ -58,15 +57,16 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
         // create location table
         db.execSQL("create table " + TABLE_LOCATION + "("
                 + COLUMN_LOC_TRIP_ID + " integer references trip(_id), "
-                + COLUMN_LOC_TIMESTAMP + " integer, "
-                + COLUMN_LOC_LAT + " real, "
-                + COLUMN_LOC_LONG + " real, "
+                + COLUMN_LOC_NAME + " text, "
+                + COLUMN_LOC_ADDRESS + "text, "
+                + COLUMN_LOC_LAT + " text, "
+                + COLUMN_LOC_LONG + " text, "
                 + COLUMN_LOC_ALT + " real, "
                 + COLUMN_LOC_PROVIDER + " varchar(100))");
         // create group table
         db.execSQL("create table " + TABLE_GROUP + "("
                 + COLUMN_GRP_TRIP_ID + " integer references trip(_id), "
-                + COLUMN_GRP_PERSON_NAME + " text");
+                + COLUMN_GRP_PERSON_NAME + " text )");
     }
 
     @Override
@@ -81,7 +81,7 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
     }
 
 
-    public boolean insertTrip(Trip trip, ArrayList<Person> persons, Location location)
+    public boolean insertTrip(Trip trip, Location location, List<Person> personList)
     {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -92,11 +92,13 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
 
         contentValues = new ContentValues();
         contentValues.put(COLUMN_LOC_TRIP_ID, id);
+        contentValues.put(COLUMN_LOC_NAME, location.getName());
+        //contentValues.put(COLUMN_LOC_ADDRESS, location.getAddress());
         contentValues.put(COLUMN_LOC_LAT, location.getLatitude());
         contentValues.put(COLUMN_LOC_LONG, location.getLongitude());
         db.insert(TABLE_LOCATION, null, contentValues);
 
-        for(Person person: persons)
+        for(Person person: personList)
         {
             contentValues = new ContentValues();
             contentValues.put(COLUMN_GRP_TRIP_ID, id);

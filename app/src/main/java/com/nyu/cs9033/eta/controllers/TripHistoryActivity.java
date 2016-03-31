@@ -30,7 +30,8 @@ public class TripHistoryActivity extends Activity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_history);
         //findViewsById();
-        addTest();
+        //addTest();
+        populate();
     }
 
     public void addTest()

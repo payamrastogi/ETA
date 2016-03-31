@@ -9,6 +9,7 @@ import android.os.Parcelable;
 public class Location implements Parcelable
 {
     private String name;
+    private String address;
     private String longitude;
     private String latitude;
     /**
@@ -33,6 +34,11 @@ public class Location implements Parcelable
     public void writeToParcel(Parcel parcel, int i)
     {
 
+    }
+
+    public Location()
+    {
+        //no argument
     }
 
     public Location(Parcel in)
@@ -63,5 +69,25 @@ public class Location implements Parcelable
     public String getLatitude()
     {
         return this.latitude;
+    }
+
+    public void setAddress(String address)
+    {
+        this.address = address;
+    }
+
+    public String getAddress()
+    {
+        return this.address;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public String getName()
+    {
+        return this.name;
     }
 }
