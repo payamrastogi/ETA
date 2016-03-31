@@ -236,13 +236,6 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 			int  nameIndex =cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
 			//phoneNo = cursor.getString(phoneIndex);
 			name = cursor.getString(nameIndex);
-			// Set the value to the textviews
-			//resultText.setText(name);
-			//TableLayout tableLayout = (TableLayout) findViewById(R.id.tableLayout);
-			//TableLayout.LayoutParams tableLayoutParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
-			//EditText myEditText = new EditText(getApplicationContext());
-			//myEditText.setLayoutParams(tableLayoutParams);
-			//tableLayout.addView(myEditText);
 			/* Find Tablelayout defined in main.xml */
 			TableLayout tableLayout = (TableLayout) findViewById(R.id.tableLayout);
 			/* Create a new row to be added. */

@@ -3,10 +3,13 @@ package com.nyu.cs9033.eta.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Date;
+
 public class Trip implements Parcelable {
 	
 	// Member fields should exist here, what else do you need for a trip?
 	// Please add additional fields
+	private long id;
 	private String name;
 	private String description;
 	private String date;
@@ -23,7 +26,11 @@ public class Trip implements Parcelable {
 			return new Trip[size];
 		}
 	};
-	
+
+	public Trip()
+	{
+		//no argument
+	}
 	/**
 	 * Create a Trip model object from a Parcel. This
 	 * function is called via the Parcelable creator.
@@ -80,6 +87,26 @@ public class Trip implements Parcelable {
 	public int describeContents() {
 		// Do not implement!
 		return 0;
+	}
+
+	public void setId(long id)
+	{
+		this.id = id;
+	}
+
+	public long getId()
+	{
+		return this.id;
+	}
+
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+
+	public void setDate(String date)
+	{
+		this.date = date;
 	}
 
 	public String getName() {

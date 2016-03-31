@@ -1,59 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:id="@+id/tlTripHistory">
 
-    <TableRow>
-        <TextView
-            android:id="@+id/txtTitle"
-            android:text="Recent Trip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="2"/>
-    </TableRow>
 
-    <TableRow
-        android:id="@+id/rowTripName"
-        android:visibility="invisible">
-        <TextView
-            android:text="Trip Name : "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="1" />
-        <TextView
-            android:id="@+id/viewName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5" />
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/rowTripDescription"
-        android:visibility="invisible">
-        <TextView
-            android:text="Description : "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="1" />
-        <TextView
-            android:id="@+id/viewDescription"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5" />
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/rowTripDate"
-        android:visibility="invisible">
-        <TextView
-            android:text="Date : "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="1" />
-        <TextView
-            android:id="@+id/viewDate"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5" />
-    </TableRow>
 </TableLayout>

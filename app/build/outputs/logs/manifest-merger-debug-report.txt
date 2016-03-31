@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml:2:1-41:12
+ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml:2:1-46:12
 	package
 		ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml:3:5-33
 		INJECTED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml
@@ -30,7 +30,7 @@ ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Paya
 	android:name
 		ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml:11:22-69
 application
-ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml:15:5-39:19
+ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml:15:5-44:19
 	android:label
 		ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml:18:9-41
 	android:allowBackup
@@ -67,3 +67,9 @@ ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Paya
 		ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml:36:13-45
 	android:name
 		ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml:35:13-75
+activity#com.nyu.cs9033.eta.controllers.TripHistoryActivity
+ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml:39:9-42:20
+	android:label
+		ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml:41:13-45
+	android:name
+		ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml:40:13-78

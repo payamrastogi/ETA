@@ -43,6 +43,13 @@ public class MainActivity extends Activity
 		intent.putExtra("recentTrip", recentTrip);
 		startActivity(intent);
 	}
+
+	public void startTripHistoryActivity(View view)
+	{
+		Intent intent = new Intent(MainActivity.this, TripHistoryActivity.class);
+		intent.putExtra("recentTrip", recentTrip);
+		startActivity(intent);
+	}
 	
 	/**
 	 * Receive result from CreateTripActivity here.
