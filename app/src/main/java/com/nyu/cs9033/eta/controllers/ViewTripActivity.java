@@ -1,5 +1,7 @@
 package com.nyu.cs9033.eta.controllers;
 
+import com.nyu.cs9033.eta.models.Location;
+import com.nyu.cs9033.eta.models.Person;
 import com.nyu.cs9033.eta.models.Trip;
 import com.nyu.cs9033.eta.R;
 
@@ -9,6 +11,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class ViewTripActivity extends Activity
 {
 
@@ -17,6 +21,9 @@ public class ViewTripActivity extends Activity
 	private TextView txtTripName;
 	private TextView txtTripDate;
 	private TextView txtTitle;
+	private Trip trip;
+	private List<Person> persons;
+	private Location location;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -49,7 +56,7 @@ public class ViewTripActivity extends Activity
 	 */
 	public Trip getTrip(Intent intent)
 	{
-		Trip trip = (Trip)intent.getParcelableExtra("recentTrip");
+		trip = (Trip)intent.getParcelableExtra("trip");
 		return trip;
 	}
 

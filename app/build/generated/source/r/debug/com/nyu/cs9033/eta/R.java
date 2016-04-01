@@ -18,7 +18,7 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f080015;
+        public static final int action_settings=0x7f080016;
         public static final int btCreateTrip=0x7f080009;
         public static final int btTripHistory=0x7f08000a;
         public static final int btViewTrip=0x7f080008;
@@ -28,11 +28,12 @@ public final class R {
         public static final int clearable_button_clear=0x7f080014;
         public static final int clearable_edit=0x7f080013;
         public static final int editTextPickLocation=0x7f080004;
+        public static final int list=0x7f08000b;
         public static final int rowTripDate=0x7f080011;
         public static final int rowTripDescription=0x7f08000f;
         public static final int rowTripName=0x7f08000d;
         public static final int tableLayout=0x7f080000;
-        public static final int tlTripHistory=0x7f08000b;
+        public static final int textViewName=0x7f080015;
         public static final int txtTitle=0x7f08000c;
         public static final int txtTripDate=0x7f080003;
         public static final int txtTripDescription=0x7f080002;
@@ -47,6 +48,7 @@ public final class R {
         public static final int activity_trip_history=0x7f030002;
         public static final int activity_view_trip=0x7f030003;
         public static final int clearable_edit_text=0x7f030004;
+        public static final int item_trip=0x7f030005;
     }
     public static final class menu {
         public static final int main=0x7f070000;

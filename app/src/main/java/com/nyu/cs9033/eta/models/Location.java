@@ -15,13 +15,13 @@ public class Location implements Parcelable
     /**
      * Parcelable creator. Do not modify this function.
      */
-    public static final Parcelable.Creator<Person> CREATOR = new Parcelable.Creator<Person>() {
-        public Person createFromParcel(Parcel p) {
-            return new Person(p);
+    public static final Parcelable.Creator<Location> CREATOR = new Parcelable.Creator<Location>() {
+        public Location createFromParcel(Parcel p) {
+            return new Location(p);
         }
 
-        public Person[] newArray(int size) {
-            return new Person[size];
+        public Location[] newArray(int size) {
+            return new Location[size];
         }
     };
 
