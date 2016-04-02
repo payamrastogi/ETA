@@ -7,6 +7,7 @@ public class Person implements Parcelable {
 	
 	// Member fields should exist here, what else do you need for a person?
 	// Please add additional fields
+	private long tripId;
 	private String name;
 	private Location location;
 	
@@ -93,5 +94,15 @@ public class Person implements Parcelable {
 	public String getName()
 	{
 		return this.name;
+	}
+
+	public void setTripId(long tripId)
+	{
+		this.tripId = tripId;
+	}
+
+	public long getTripId()
+	{
+		return this.tripId;
 	}
 }

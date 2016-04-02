@@ -131,4 +131,70 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
         cursor.close();
         return trips;
     }
+
+    public Location getLocationById(Long id)
+    {
+        Location location = null;
+
+        String selectQuery = "SELECT  * FROM " + TABLE_LOCATION +" where "+ COLUMN_LOC_TRIP_ID + "=?";
+        SQLiteDatabase db  = this.getReadableDatabase();
+        Cursor cursor      = db.rawQuery(selectQuery, new String[]{id.toString()});
+
+        if (cursor.moveToFirst())
+        {
+            int index = 0;
+            location = new Location();
+            location.setName(cursor.getString(++index));
+            location.setLatitude(cursor.getString(++index));
+            location.setLongitude(cursor.getString(++index));
+        }
+        cursor.close();
+        return location;
+    }
+
+    public Trip getTripById(Long id)
+    {
+        Trip trip = null;
+
+        String selectQuery = "SELECT  * FROM " + TABLE_TRIP +" where "+ COLUMN_TRIP_ID + "=?";
+        SQLiteDatabase db  = this.getReadableDatabase();
+        Cursor cursor      = db.rawQuery(selectQuery, new String[]{id.toString()});
+
+        if (cursor.moveToFirst())
+        {
+            int index = 0;
+            trip = new Trip();
+            trip.setId(cursor.getInt(index));
+            trip.setName(cursor.getString(++index));
+            trip.setDescription(cursor.getString(++index));
+            trip.setDate(cursor.getString(++index));
+        }
+        cursor.close();
+        return trip;
+    }
+
+    public List<Person> getPersonsById(Long id)
+    {
+        List<Person>  persons = new ArrayList<Person>();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_GROUP +" where "+ COLUMN_GRP_TRIP_ID + "=?";
+        SQLiteDatabase db  = this.getReadableDatabase();
+        Cursor cursor      = db.rawQuery(selectQuery, null);
+        String[] data      = null;
+        List<Trip> trips = new ArrayList<Trip>();
+        if (cursor.moveToFirst())
+        {
+            do
+            {
+                int index = 0;
+                Person person = new Person();
+                person.setTripId(cursor.getLong(index));
+                person.setName(cursor.getString(++index));
+                persons.add(person);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return persons;
+
+    }
 }

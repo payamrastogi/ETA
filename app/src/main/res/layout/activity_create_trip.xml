@@ -3,7 +3,6 @@
     android:layout_height="fill_parent"
     android:id="@+id/tableLayout">
 
-
     <TableRow>
         <EditText
             android:id="@+id/txtTripName"
@@ -41,52 +40,53 @@
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/editTextPickLocation"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight=".5"
             android:hint="Select Location" />
 
     </TableRow>
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="wrap_content">
 
         <Button
             android:id="@+id/btnPickContact"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".5"
             android:text="Pick Contact"/>
 
     </TableRow>
 
-    <TableRow
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+    <!--<TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ScrollView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/tableLayoutChild">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Save"
-            android:id="@+id/btnSave"
-            android:layout_column="2" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cancel"
-            android:id="@+id/btnCancel"
-            android:layout_column="2" />
+
+            </TableLayout>
+        </ScrollView>
+    </TableRow>-->
+    <TableRow
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+        <com.nyu.cs9033.eta.widget.AdjustableLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </TableRow>
 
-    <!--<TableRow
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-        <com.nyu.cs9033.eta.widget.ClearableEditText
-            android:id="@+id/clearableEditTextLocation"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
-    </TableRow>-->
 </TableLayout>

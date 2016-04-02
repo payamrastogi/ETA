@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.Date;
+import java.util.List;
 
 public class Trip implements Parcelable {
 	
@@ -13,6 +14,8 @@ public class Trip implements Parcelable {
 	private String name;
 	private String description;
 	private String date;
+	private Location location;
+	private List<Person> persons;
 	
 	/**
 	 * Parcelable creator. Do not modify this function.
@@ -113,6 +116,10 @@ public class Trip implements Parcelable {
 		return name;
 	}
 
+	public void setDescription(String description)
+	{
+		this.description = description;
+	}
 	public String getDescription() {
 		return description;
 	}

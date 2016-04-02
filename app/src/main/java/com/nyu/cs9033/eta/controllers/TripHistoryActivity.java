@@ -2,18 +2,27 @@ package com.nyu.cs9033.eta.controllers;
 
 import android.app.Activity;
 
+import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
 import android.view.View;
 
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nyu.cs9033.eta.R;
+import com.nyu.cs9033.eta.adapter.TripAdapter;
 import com.nyu.cs9033.eta.database.TripDatabaseHelper;
+import com.nyu.cs9033.eta.models.Location;
+import com.nyu.cs9033.eta.models.Person;
 import com.nyu.cs9033.eta.models.Trip;
 
 import java.util.List;
@@ -21,6 +30,54 @@ import java.util.List;
 /**
  * Created by payamrastogi on 3/30/16.
  */
+
+
+public class TripHistoryActivity extends Activity
+{
+    private static final String TAG = "TripHistoryActivity";
+    private List<Trip> trips;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        populate();
+        setContentView(R.layout.activity_trip_history);
+        TripAdapter tripAdapter = new TripAdapter(this, trips);
+        ListView listView = (ListView) findViewById(R.id.list);
+        listView.setAdapter(tripAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                TextView textView = (TextView)((LinearLayout) view).findViewById(R.id.textViewName);
+                String item = textView.getText().toString();
+                Log.d(TAG, item);
+                startViewTripActivity(textView);
+            }
+        });
+    }
+
+    public void populate()
+    {
+        TripDatabaseHelper tripDatabaseHelper = new TripDatabaseHelper(this);
+        this.trips = tripDatabaseHelper.getTrips();
+    }
+
+    public void startViewTripActivity(View view)
+    {
+        Long tripId = (Long)view.getTag();
+        TripDatabaseHelper tripDatabaseHelper = new TripDatabaseHelper(this);
+        Location location = tripDatabaseHelper.getLocationById(tripId);
+        List<Person> persons = tripDatabaseHelper.getPersonsById(tripId);
+        Trip trip = tripDatabaseHelper.getTripById(tripId);
+        Intent intent = new Intent(TripHistoryActivity.this, ViewTripActivity.class);
+        intent.putExtra("trip", trip);
+        intent.putExtra("persons", persons.toArray());
+        intent.putExtra("location", location);
+        startActivity(intent);
+    }
+}
+
+/*
 public class TripHistoryActivity extends Activity implements View.OnClickListener
 {
     private static final String TAG = "TripHistoryActivity";
@@ -70,7 +127,6 @@ public class TripHistoryActivity extends Activity implements View.OnClickListene
 
     public void addTrips(Trip trip)
     {
-        /* Find Tablelayout defined in main.xml */
         TableLayout tableLayout = (TableLayout) findViewById(R.id.tlTripHistory);
         TableRow tableRow = new TableRow(this);
         tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
@@ -82,6 +138,7 @@ public class TripHistoryActivity extends Activity implements View.OnClickListene
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "textview clicked");
+                startViewTripActivity(view);
             }
         });
         txtView.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
@@ -92,6 +149,20 @@ public class TripHistoryActivity extends Activity implements View.OnClickListene
     public void findViewsById()
     {
 
+    }
+
+    public void startViewTripActivity(View view)
+    {
+        Long tripId = (Long)view.getTag();
+        TripDatabaseHelper tripDatabaseHelper = new TripDatabaseHelper(this);
+        Location location = tripDatabaseHelper.getLocationById(tripId);
+        List<Person> persons = tripDatabaseHelper.getPersonsById(tripId);
+        Trip trip = tripDatabaseHelper.getTripById(tripId);
+        Intent intent = new Intent(TripHistoryActivity.this, ViewTripActivity.class);
+        intent.putExtra("trip", trip);
+        intent.putExtra("persons", persons.toArray());
+        intent.putExtra("location", location);
+        startActivity(intent);
     }
 
     @Override
@@ -114,4 +185,4 @@ public class TripHistoryActivity extends Activity implements View.OnClickListene
         // return true if you don't want it handled by any other touch/click events after this
     //    return true;
     //}
-}
+}*/
