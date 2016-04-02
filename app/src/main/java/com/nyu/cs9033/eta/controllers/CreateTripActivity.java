@@ -5,7 +5,9 @@ import com.nyu.cs9033.eta.models.Location;
 import com.nyu.cs9033.eta.models.Person;
 import com.nyu.cs9033.eta.models.Trip;
 import com.nyu.cs9033.eta.R;
+import com.nyu.cs9033.eta.widget.AdjustableLayout;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -14,11 +16,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -37,12 +45,10 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 	private EditText txtTripDate;
 	private Button btnPickContact;
 	private EditText editTextPickLocation;
-	private Button btnSave;
-	private Button btnCancel;
 	private DatePickerDialog datePickerDialog;
 	private SimpleDateFormat dateFormatter;
+	private AdjustableLayout adjustableLayout;
 
-	private TextView resultText;
 	//private ClearableEditText clearableEditTextLocation;
 
 	private static final String TAG = "CreateActivity";
@@ -59,9 +65,23 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 		//Toast.makeText(getApplicationContext(), "msg msg", Toast.LENGTH_SHORT).show();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_trip);
+		// get action bar
+		ActionBar actionBar = getActionBar();
+
+		// Enabling Up / Back navigation
+		actionBar.setDisplayHomeAsUpEnabled(true);
 		dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 		findViewsById();
 	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.activity_create_trip_actions, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
 
 	public void findViewsById()
 	{
@@ -73,14 +93,11 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 		btnPickContact = (Button) findViewById(R.id.btnPickContact);
 		editTextPickLocation = (EditText) findViewById(R.id.editTextPickLocation);
 		//clearableEditTextLocation = (ClearableEditText) findViewById(R.id.clearableEditTextLocation);
-		btnSave = (Button) findViewById(R.id.btnSave);
-		btnSave.setOnClickListener(this);
-		btnCancel = (Button) findViewById(R.id.btnCancel);
-		btnCancel.setOnClickListener(this);
 		btnPickContact.setOnClickListener(this);
 		editTextPickLocation.setOnClickListener(this);
 		//clearableEditTextLocation.setOnClickListener(this);
 		personList = new ArrayList<Person>();
+		adjustableLayout = (AdjustableLayout)findViewById(R.id.container);
 		setDateTimeField();
 	}
 
@@ -176,11 +193,20 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 	{
 		switch (v.getId())
 		{
-			case R.id.btnCancel:
-				cancelTrip();
+			case R.id.btnPickContact:
+				pickContact(v);
 				break;
+			case R.id.editTextPickLocation:
+				pickLocation(v);
+				break;
+		}
+	}
 
-			case R.id.btnSave:
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Take appropriate action for each action item click
+		switch (item.getItemId()) {
+			case R.id.action_save:
 				String tripName = txtTripName.getText().toString();
 				String tripDescription = txtTripDescription.getText().toString();
 				String tripDate = txtTripDate.getText().toString();
@@ -208,13 +234,9 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 					recentTrip = createTrip();
 					saveTrip();
 				}
-				break;
-			case R.id.btnPickContact:
-				pickContact(v);
-				break;
-			case R.id.editTextPickLocation:
-				pickLocation(v);
-				break;
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
 		}
 	}
 
@@ -266,14 +288,16 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 			int nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
 			//phoneNo = cursor.getString(phoneIndex);
 			name = cursor.getString(nameIndex);
-			TableLayout tableLayout = (TableLayout) findViewById(R.id.tableLayout);
+			addChipsView(name);
+			/*TableLayout tableLayout = (TableLayout) findViewById(R.id.tableLayoutChild);
 			TableRow tableRow = new TableRow(this);
-			tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
+			tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
 			EditText myEditText = new EditText(this);
 			myEditText.setText(name);
-			myEditText.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
+			myEditText.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
 			tableRow.addView(myEditText);
-			tableLayout.addView(tableRow, new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
+			tableLayout.addView(tableRow, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT));
+			*/
 			Person p = new Person();
 			p.setName(name);
 			personList.add(p);
@@ -305,6 +329,25 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 		editTextPickLocation.setText(location.getName());
 		Log.d(TAG, list.toString() + " " + list.size());
 		return location;
+	}
+
+	private void addChipsView(String name)
+	{
+		if (!TextUtils.isEmpty(name)){
+			final View newView = LayoutInflater.from(this).inflate(R.layout.view_chip_text,null);
+			TextView tvName = (TextView)newView.findViewById(R.id.tvName);
+			ImageView ivRemove = (ImageView)newView.findViewById(R.id.ivRemove);
+			ivRemove.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					adjustableLayout.removeView(newView);
+				}
+			});
+			tvName.setText(name);
+			adjustableLayout.addView(newView);
+		}else {
+			Toast.makeText(this,"Enter some text",Toast.LENGTH_SHORT).show();
+		}
 	}
 
 }

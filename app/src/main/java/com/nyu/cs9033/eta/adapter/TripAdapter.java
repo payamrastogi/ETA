@@ -9,8 +9,6 @@ import android.widget.TextView;
 
 import com.nyu.cs9033.eta.R;
 import com.nyu.cs9033.eta.models.Trip;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**

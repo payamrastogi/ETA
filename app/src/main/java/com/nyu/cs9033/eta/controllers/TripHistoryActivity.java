@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -32,6 +34,7 @@ import java.util.List;
 
 public class TripHistoryActivity extends Activity
 {
+    private static final String TAG = "TripHistoryActivity";
     private List<Trip> trips;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,12 +44,36 @@ public class TripHistoryActivity extends Activity
         TripAdapter tripAdapter = new TripAdapter(this, trips);
         ListView listView = (ListView) findViewById(R.id.list);
         listView.setAdapter(tripAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                TextView textView = (TextView)((LinearLayout) view).findViewById(R.id.textViewName);
+                String item = textView.getText().toString();
+                Log.d(TAG, item);
+                startViewTripActivity(textView);
+            }
+        });
     }
 
     public void populate()
     {
         TripDatabaseHelper tripDatabaseHelper = new TripDatabaseHelper(this);
         this.trips = tripDatabaseHelper.getTrips();
+    }
+
+    public void startViewTripActivity(View view)
+    {
+        Long tripId = (Long)view.getTag();
+        TripDatabaseHelper tripDatabaseHelper = new TripDatabaseHelper(this);
+        Location location = tripDatabaseHelper.getLocationById(tripId);
+        List<Person> persons = tripDatabaseHelper.getPersonsById(tripId);
+        Trip trip = tripDatabaseHelper.getTripById(tripId);
+        Intent intent = new Intent(TripHistoryActivity.this, ViewTripActivity.class);
+        intent.putExtra("trip", trip);
+        intent.putExtra("persons", persons.toArray());
+        intent.putExtra("location", location);
+        startActivity(intent);
     }
 }
 

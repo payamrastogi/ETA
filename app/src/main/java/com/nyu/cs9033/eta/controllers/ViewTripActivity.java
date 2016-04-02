@@ -56,7 +56,7 @@ public class ViewTripActivity extends Activity
 	 */
 	public Trip getTrip(Intent intent)
 	{
-		trip = (Trip)intent.getParcelableExtra("trip");
+		trip = intent.getParcelableExtra("trip");
 		return trip;
 	}
 
