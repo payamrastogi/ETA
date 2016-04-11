@@ -1,6 +1,7 @@
 package com.nyu.cs9033.eta.controllers;
 
 import com.nyu.cs9033.eta.database.TripDatabaseHelper;
+import com.nyu.cs9033.eta.http.Rest;
 import com.nyu.cs9033.eta.models.Location;
 import com.nyu.cs9033.eta.models.Person;
 import com.nyu.cs9033.eta.models.Trip;
@@ -10,8 +11,11 @@ import com.nyu.cs9033.eta.widget.AdjustableLayout;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -114,6 +118,8 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 		String tripDescription = txtTripDescription.getText().toString();
 		String tripDate = txtTripDate.getText().toString();
 		return new Trip(tripName, tripDescription, tripDate);
+
+
 	}
 
 	/**
@@ -130,6 +136,17 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 	 */
 	public boolean saveTrip()
 	{
+		ConnectivityManager connectivityManager = (ConnectivityManager)
+				getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+		if(networkInfo != null && networkInfo.isConnected())
+		{
+			//fetch data
+		}
+		else
+		{
+			//display error
+		}
 		TripDatabaseHelper db = new TripDatabaseHelper(this);
 
 		Intent result = new Intent();
@@ -234,6 +251,8 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 					recentTrip = createTrip();
 					saveTrip();
 				}
+				Rest rest = new Rest();
+				rest.createTrip(location, personList);
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);

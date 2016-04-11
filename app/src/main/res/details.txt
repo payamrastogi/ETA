@@ -1,0 +1,14 @@
+  http://cs9033-homework.appspot.com/
+
+
+ {"command": "CREATE_TRIP", "location": [“location name”,
+ ”address”, ”latitude”, ”longitude”], "datetime": 1382584629, "people": ["John
+ Doe", "Joe Smith"]}
+  {"response_code": 0, "trip_id": 3645686546}
+
+ {"command": "UPDATE_LOCATION", "latitude": 0,
+ "longitude": 0, "datetime": 1382591009}
+ {"response_code": 0}
+
+ {"command": "TRIP_STATUS", "trip_id": 3645686546}
+  {"distance_left": [20.399999999999999, 6.7000000000000002], "time_left": [1920, 900], "people": ["Joe Smith", "John Doe"]}
