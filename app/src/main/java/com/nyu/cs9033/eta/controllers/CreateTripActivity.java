@@ -141,22 +141,8 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 	 */
 	public boolean saveTrip()
 	{
-		ConnectivityManager connectivityManager = (ConnectivityManager)
-				getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-		if(networkInfo != null && networkInfo.isConnected())
-		{
-			//fetch data
-		}
-		else
-		{
-			//display error
-		}
-		TripDatabaseHelper db = new TripDatabaseHelper(this);
-
 		Intent result = new Intent();
 		result.putExtra("recentTrip", recentTrip);
-		db.insertTrip(recentTrip, location, persons);
 		setResult(RESULT_OK, result);
 		finish();
 		return false;
@@ -255,10 +241,11 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 				}
 				if (invalid == false)
 				{
-					saveTrip();
+					this.recentTrip = new Trip(tripName, tripDescription, tripDate);
+					createTrip();
 					return true;
 				}
-
+				return false;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
@@ -381,55 +368,65 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
              ”address”, ”latitude”, ”longitude”], "datetime": 1382584629, "people": ["John
               Doe", "Joe Smith"]}
         */
-		JSONObject objRequest = new JSONObject();
-		int tripId=-1;
-		try
+		ConnectivityManager connectivityManager = (ConnectivityManager)
+				getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+		if(networkInfo != null && networkInfo.isConnected())
 		{
-			objRequest.put("command", "CREATE_TRIP");
-
-			JSONArray objLocation = new JSONArray();
-			objLocation.put(location.getName());
-			objLocation.put(location.getAddress());
-			objLocation.put(location.getLatitude());
-			objLocation.put(location.getLongitude());
-			objRequest.put("location", objLocation);
-			objRequest.put("datetime", new Date().getTime());
-			JSONArray objPerson = new JSONArray();
-			for(Person person: persons)
-				objPerson.put(person);
-
-			objRequest.put("people", objPerson);
-
-			HttpTask httpTask  = new HttpTask();
-			httpTask.setJsonListener(new JSONListener()
+			JSONObject objRequest = new JSONObject();
+			try
 			{
-				@Override
-				public void jsonReceivedSuccessfully(String json)
+				objRequest.put("command", "CREATE_TRIP");
+
+				JSONArray objLocation = new JSONArray();
+				objLocation.put(location.getName());
+				objLocation.put(location.getAddress());
+				objLocation.put(location.getLatitude());
+				objLocation.put(location.getLongitude());
+				objRequest.put("location", objLocation);
+				objRequest.put("datetime", new Date().getTime());
+				JSONArray objPerson = new JSONArray();
+				for(Person person: persons)
+					objPerson.put(person);
+
+				objRequest.put("people", objPerson);
+
+				HttpTask httpTask  = new HttpTask();
+				httpTask.setJsonListener(new JSONListener()
 				{
-					try
+					@Override
+					public void jsonReceivedSuccessfully(String json)
 					{
-						JSONObject jsonObject = new JSONObject(json);
-						if (jsonObject.getInt("response_code") == 0)
+						try
 						{
-							Log.d(TAG, jsonObject.getInt("trip_id") + "98797977997");
-							recentTrip.setId(jsonObject.getInt("trip_id"));
+							JSONObject jsonObject = new JSONObject(json);
+							if (jsonObject.getInt("response_code") == 0)
+							{
+								Log.d(TAG, "Returned Trip ID:"+jsonObject.getInt("trip_id"));
+								recentTrip.setId(jsonObject.getInt("trip_id"));
+								new DBInsertTask().execute();
+							}
+						} catch (JSONException e) {
+							Log.e(TAG, e.getMessage());
 						}
-					} catch (JSONException e) {
-						Log.e(TAG, e.getMessage());
 					}
-				}
 
-				@Override
-				public void jsonReceivedFailed()
-				{
+					@Override
+					public void jsonReceivedFailed()
+					{
 
-				}
-			});
-			httpTask.execute(objRequest);
+					}
+				});
+				httpTask.execute(objRequest);
+			}
+			catch(JSONException e)
+			{
+				Log.e(TAG, e.getMessage());
+			}
 		}
-		catch(JSONException e)
+		else
 		{
-			Log.e(TAG, e.getMessage());
+			Toast.makeText(this, "Check Network Connection!", Toast.LENGTH_SHORT );
 		}
 	}
 

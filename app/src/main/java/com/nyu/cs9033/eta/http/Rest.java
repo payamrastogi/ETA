@@ -46,7 +46,7 @@ public class Rest
             objRequest.put("people", objPerson);
 
             HttpTask httpTask  = new HttpTask();
-            httpTask.setJsonListener(new HttpTask.JSONListener()
+            httpTask.setJsonListener(new JSONListener()
             {
                 @Override
                 public void jsonReceivedSuccessfully(String json)
@@ -94,7 +94,7 @@ public class Rest
             objRequest.put("datetime", new Date().getTime());
 
             HttpTask httpTask  = new HttpTask();
-            httpTask.setJsonListener(new HttpTask.JSONListener()
+            httpTask.setJsonListener(new JSONListener()
             {
                 @Override
                 public void jsonReceivedSuccessfully(String json)
@@ -140,7 +140,7 @@ public class Rest
             objRequest.put("trip_id", "3645686546");
 
             HttpTask httpTask  = new HttpTask();
-            httpTask.setJsonListener(new HttpTask.JSONListener() {
+            httpTask.setJsonListener(new JSONListener() {
                 @Override
                 public void jsonReceivedSuccessfully(String json) {
                     try {

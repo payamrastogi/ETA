@@ -91,20 +91,27 @@
                     "startLine": 9,
                     "startColumn": 4,
                     "startOffset": 410,
-                    "endColumn": 61,
-                    "endOffset": 467
+                    "endColumn": 43,
+                    "endOffset": 449
                 },
                 "from": {
-                    "file": "/Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/res/values/strings.xml"
+                    "file": "/Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/res/values/strings.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 612,
+                        "endColumn": 43,
+                        "endOffset": 651
+                    }
                 }
             },
             {
                 "to": {
                     "startLine": 10,
                     "startColumn": 4,
-                    "startOffset": 472,
-                    "endColumn": 52,
-                    "endOffset": 520
+                    "startOffset": 454,
+                    "endColumn": 61,
+                    "endOffset": 511
                 },
                 "from": {
                     "file": "/Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/res/values/strings.xml"
@@ -114,9 +121,9 @@
                 "to": {
                     "startLine": 11,
                     "startColumn": 4,
-                    "startOffset": 525,
-                    "endColumn": 55,
-                    "endOffset": 576
+                    "startOffset": 516,
+                    "endColumn": 52,
+                    "endOffset": 564
                 },
                 "from": {
                     "file": "/Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/res/values/strings.xml"
@@ -126,28 +133,21 @@
                 "to": {
                     "startLine": 12,
                     "startColumn": 4,
-                    "startOffset": 581,
-                    "endColumn": 49,
-                    "endOffset": 626
+                    "startOffset": 569,
+                    "endColumn": 55,
+                    "endOffset": 620
                 },
                 "from": {
-                    "file": "/Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/res/values/strings.xml",
-                    "position": {
-                        "startLine": 12,
-                        "startColumn": 4,
-                        "startOffset": 561,
-                        "endColumn": 49,
-                        "endOffset": 606
-                    }
+                    "file": "/Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/res/values/strings.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 13,
                     "startColumn": 4,
-                    "startOffset": 631,
-                    "endColumn": 61,
-                    "endOffset": 688
+                    "startOffset": 625,
+                    "endColumn": 49,
+                    "endOffset": 670
                 },
                 "from": {
                     "file": "/Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/res/values/strings.xml"
@@ -157,9 +157,9 @@
                 "to": {
                     "startLine": 14,
                     "startColumn": 4,
-                    "startOffset": 693,
+                    "startOffset": 675,
                     "endColumn": 61,
-                    "endOffset": 750
+                    "endOffset": 732
                 },
                 "from": {
                     "file": "/Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/res/values/strings.xml"
@@ -169,9 +169,9 @@
                 "to": {
                     "startLine": 15,
                     "startColumn": 4,
-                    "startOffset": 755,
-                    "endColumn": 58,
-                    "endOffset": 809
+                    "startOffset": 737,
+                    "endColumn": 61,
+                    "endOffset": 794
                 },
                 "from": {
                     "file": "/Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/res/values/strings.xml"
@@ -181,10 +181,22 @@
                 "to": {
                     "startLine": 16,
                     "startColumn": 4,
-                    "startOffset": 814,
-                    "endLine": 22,
+                    "startOffset": 799,
+                    "endColumn": 58,
+                    "endOffset": 853
+                },
+                "from": {
+                    "file": "/Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/res/values/strings.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 858,
+                    "endLine": 23,
                     "endColumn": 12,
-                    "endOffset": 1100
+                    "endOffset": 1144
                 },
                 "from": {
                     "file": "/Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/res/values/styles.xml"
@@ -192,12 +204,12 @@
             },
             {
                 "to": {
-                    "startLine": 23,
+                    "startLine": 24,
                     "startColumn": 4,
-                    "startOffset": 1105,
-                    "endLine": 25,
+                    "startOffset": 1149,
+                    "endLine": 26,
                     "endColumn": 12,
-                    "endOffset": 1260
+                    "endOffset": 1304
                 },
                 "from": {
                     "file": "/Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/res/values/styles.xml"
