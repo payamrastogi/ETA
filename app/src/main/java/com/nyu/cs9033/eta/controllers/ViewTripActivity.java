@@ -1,27 +1,32 @@
 package com.nyu.cs9033.eta.controllers;
 
+import com.nyu.cs9033.eta.database.TripDatabaseHelper;
 import com.nyu.cs9033.eta.models.Location;
 import com.nyu.cs9033.eta.models.Person;
 import com.nyu.cs9033.eta.models.Trip;
 import com.nyu.cs9033.eta.R;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
 
 public class ViewTripActivity extends Activity
 {
-
 	private static final String TAG = "ViewTripActivity";
 	private TextView txtTripDescription;
 	private TextView txtTripName;
 	private TextView txtTripDate;
 	private TextView txtTitle;
 	private Trip trip;
+	private Button buttonStartTrip;
 	private List<Person> persons;
 	private Location location;
 	
@@ -41,6 +46,15 @@ public class ViewTripActivity extends Activity
 		txtTripName = (TextView) findViewById(R.id.viewName);
 		txtTripDescription = (TextView) findViewById(R.id.viewDescription);
 		txtTripDate = (TextView) findViewById(R.id.viewDate);
+		buttonStartTrip = (Button) findViewById(R.id.buttonStartTrip);
+		buttonStartTrip.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v)
+			{
+				Log.d(TAG, "clicked");
+				DBUpdateTask dbUpdateTask = new DBUpdateTask(ViewTripActivity.this);
+				dbUpdateTask.execute(trip.getId());
+			}
+		});
 	}
 	
 	/**
@@ -84,6 +98,24 @@ public class ViewTripActivity extends Activity
 			findViewById(R.id.rowTripName).setVisibility(View.INVISIBLE);
 			findViewById(R.id.rowTripDescription).setVisibility(View.INVISIBLE);
 			findViewById(R.id.rowTripDate).setVisibility(View.INVISIBLE);
+		}
+	}
+
+	private class DBUpdateTask extends AsyncTask<Long, Void, Void>
+	{
+		Context context;
+
+		DBUpdateTask(Context context)
+		{
+			this.context = context;
+		}
+
+		protected Void doInBackground(Long... tripIds)
+		{
+			Log.d(TAG, "DBUpdateTask Backgrooud");
+			TripDatabaseHelper db = new TripDatabaseHelper(this.context);
+			db.updateTripStatus(tripIds[0]);
+			return null;
 		}
 	}
 }

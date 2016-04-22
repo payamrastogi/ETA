@@ -36,7 +36,6 @@ public class PollTripService extends IntentService {
 
         Notification notification = new NotificationCompat.Builder(this)
                 .setTicker(r.getString(R.string.trip_update))
-                .setSmallIcon(R.drawable.ic_menu_share)
                 .setContentTitle(r.getString(R.string.trip_update_title))
                         .setContentText(r.getString(R.string.trip_update_text))
                         .setContentIntent(pi)

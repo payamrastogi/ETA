@@ -39,6 +39,12 @@
             android:name="com.nyu.cs9033.eta.controllers.TripHistoryActivity"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name="com.nyu.cs9033.eta.controllers.ActiveTripsActivity"
+            android:label="@string/app_name" >
+        </activity>
+
+        <service android:name="com.nyu.cs9033.eta.http.PollTripService" />
     </application>
 
 </manifest>

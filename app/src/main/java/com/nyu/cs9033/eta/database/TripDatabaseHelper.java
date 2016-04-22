@@ -25,6 +25,7 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
     private static final String COLUMN_TRIP_NAME = "name";
     private static final String COLUMN_TRIP_DATE = "date";
     private static final String COLUMN_TRIP_DESCRIPTION = "description";
+    private static final String COLUMN_TRIP_STATUS = "status";
 
     private static final String TABLE_GROUP = "persons";
     private static final String COLUMN_GRP_TRIP_ID = "trip_id";
@@ -38,6 +39,8 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
     private static final String COLUMN_LOC_LONG = "longitude";
     private static final String COLUMN_LOC_ALT = "altitude";
     private static final String COLUMN_LOC_PROVIDER = "provider";
+
+    private static final String STATUS_ACTIVE = "ACTIVE";
 
     public TripDatabaseHelper(Context context)
     {
@@ -53,12 +56,13 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
             + COLUMN_TRIP_ID + " integer primary key autoincrement,"
             + COLUMN_TRIP_NAME + " text, "
             + COLUMN_TRIP_DATE + " timestamp, "
-            + COLUMN_TRIP_DESCRIPTION + " text)");
+            + COLUMN_TRIP_DESCRIPTION + " text, "
+            + COLUMN_TRIP_STATUS + " varchar(100) )");
         // create location table
         db.execSQL("create table " + TABLE_LOCATION + "("
                 + COLUMN_LOC_TRIP_ID + " integer references trip(_id), "
                 + COLUMN_LOC_NAME + " text, "
-                + COLUMN_LOC_ADDRESS + "text, "
+                + COLUMN_LOC_ADDRESS + " text, "
                 + COLUMN_LOC_LAT + " text, "
                 + COLUMN_LOC_LONG + " text, "
                 + COLUMN_LOC_ALT + " real, "
@@ -179,9 +183,7 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
 
         String selectQuery = "SELECT  * FROM " + TABLE_GROUP +" where "+ COLUMN_GRP_TRIP_ID + "=?";
         SQLiteDatabase db  = this.getReadableDatabase();
-        Cursor cursor      = db.rawQuery(selectQuery, null);
-        String[] data      = null;
-        List<Trip> trips = new ArrayList<Trip>();
+        Cursor cursor      = db.rawQuery(selectQuery, new String[]{id+""});
         if (cursor.moveToFirst())
         {
             do
@@ -196,5 +198,40 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
         cursor.close();
         return persons;
 
+    }
+
+    public void updateTripStatus(long tripId)
+    {
+        final String TABLE_NAME = "trip";
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_TRIP_STATUS, STATUS_ACTIVE);
+        String[] args = new String[]{tripId+""};
+        String whereClause = COLUMN_TRIP_ID+ " =?";
+        db.update(TABLE_NAME, contentValues, whereClause, args);
+    }
+
+    public List<Trip> getTripsByStatus()
+    {
+        List<Trip>  trips = new ArrayList<Trip>();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_TRIP +" where "+ COLUMN_TRIP_STATUS + "=?";
+        SQLiteDatabase db  = this.getReadableDatabase();
+        Cursor cursor      = db.rawQuery(selectQuery, new String[]{STATUS_ACTIVE});
+        if (cursor.moveToFirst())
+        {
+            do
+            {
+                int index = 0;
+                Trip trip = new Trip();
+                trip.setId(cursor.getLong(index));
+                trip.setName(cursor.getString(++index));
+                trip.setDescription(cursor.getString(++index));
+                trip.setDate(cursor.getString(++index));
+                trips.add(trip);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return trips;
     }
 }

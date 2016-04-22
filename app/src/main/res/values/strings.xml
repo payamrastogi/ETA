@@ -10,4 +10,6 @@
     <string name="trip_update">You have notification</string>
     <string name="trip_update_title">Notification</string>
     <string name="trip_update_text">Location updated</string>
+    <string name="start_trip">Start Trip</string>
+    <string name="arrived">Arrived</string>
 </resources>

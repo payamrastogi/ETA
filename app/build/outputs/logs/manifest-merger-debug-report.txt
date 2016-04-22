@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml:2:1-48:12
+ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml:2:1-55:12
 	package
 		ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml:3:5-33
 		INJECTED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml
@@ -38,7 +38,7 @@ ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Paya
 	android:name
 		ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml:13:22-76
 application
-ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml:16:5-46:19
+ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml:16:5-53:19
 	android:label
 		ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml:19:9-41
 	android:allowBackup
@@ -83,3 +83,13 @@ ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Paya
 		ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml:43:13-45
 	android:name
 		ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml:42:13-78
+activity#com.nyu.cs9033.eta.controllers.ActiveTripsActivity
+ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml:46:9-49:20
+	android:label
+		ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml:48:13-45
+	android:name
+		ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml:47:13-78
+service#com.nyu.cs9033.eta.http.PollTripService
+ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml:51:9-75
+	android:name
+		ADDED from /Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/AndroidManifest.xml:51:18-72

@@ -12,8 +12,7 @@
     </TableRow>
 
     <TableRow
-        android:id="@+id/rowTripName"
-        android:visibility="invisible">
+        android:id="@+id/rowTripName">
         <TextView
             android:text="Trip Name : "
             android:layout_width="wrap_content"
@@ -21,14 +20,12 @@
             android:layout_column="1" />
         <TextView
             android:id="@+id/viewName"
-            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".5" />
     </TableRow>
 
     <TableRow
-        android:id="@+id/rowTripDescription"
-        android:visibility="invisible">
+        android:id="@+id/rowTripDescription">
         <TextView
             android:text="Description : "
             android:layout_width="wrap_content"
@@ -36,14 +33,12 @@
             android:layout_column="1" />
         <TextView
             android:id="@+id/viewDescription"
-            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".5" />
     </TableRow>
 
     <TableRow
-        android:id="@+id/rowTripDate"
-        android:visibility="invisible">
+        android:id="@+id/rowTripDate">
         <TextView
             android:text="Date : "
             android:layout_width="wrap_content"
@@ -51,8 +46,19 @@
             android:layout_column="1" />
         <TextView
             android:id="@+id/viewDate"
-            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".5" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/rowStartTrip">
+        <Button
+            android:id="@+id/buttonStartTrip"
+            android:text="@string/start_trip"
+            android:layout_column="1"/>
+        <Button
+            android:id="@+id/buttonArrived"
+            android:text="@string/arrived"
+            android:layout_column="2"/>
     </TableRow>
 </TableLayout>

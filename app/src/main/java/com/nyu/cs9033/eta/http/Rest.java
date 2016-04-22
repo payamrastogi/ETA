@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.nyu.cs9033.eta.models.Location;
 import com.nyu.cs9033.eta.models.Person;
+import com.nyu.cs9033.eta.models.Trip;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,7 +19,7 @@ public class Rest
 {
     public static final String TAG = "Rest";
 
-    public void createTrip(Location location, List<Person> persons)
+    public void createTrip(final Location location, final List<Person> persons, final Trip trip)
     {
         /*
             {"command": "CREATE_TRIP", "location": [“location name”,
@@ -55,6 +57,7 @@ public class Rest
                         if (jsonObject.getInt("response_code") == 0)
                         {
                             Log.d(TAG, jsonObject.getInt("trip_id") + "98797977997");
+                            trip.setId(jsonObject.getInt("trip_id"));
                         }
                     } catch (JSONException e) {
                         Log.e(TAG, e.getMessage());
@@ -73,7 +76,6 @@ public class Rest
         {
             Log.e(TAG, e.getMessage());
         }
-        Log.d(TAG, tripId+"");
     }
     /*
         {"command": "UPDATE_LOCATION", "latitude": 0,
@@ -112,6 +114,47 @@ public class Rest
                 @Override
                 public void jsonReceivedFailed()
                 {
+
+                }
+            });
+            httpTask.execute(objRequest);
+        }
+        catch(JSONException e)
+        {
+            Log.e(TAG, e.getMessage());
+        }
+    }
+
+    /*
+         {"command": "TRIP_STATUS", "trip_id": 3645686546}
+         {"distance_left": [20.399999999999999,
+            6.7000000000000002], "time_left": [1920, 900], "people": ["Joe Smith", "John
+            Doe"]}
+     */
+    public void tripStatus(int tripId)
+    {
+        JSONObject objRequest = new JSONObject();
+        try
+        {
+            objRequest.put("command", "TRIP_STATUS");
+            objRequest.put("trip_id", "3645686546");
+
+            HttpTask httpTask  = new HttpTask();
+            httpTask.setJsonListener(new HttpTask.JSONListener() {
+                @Override
+                public void jsonReceivedSuccessfully(String json) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(json);
+                        if (jsonObject.getInt("response_code") == 0) {
+                            Log.d(TAG, "details updated");
+                        }
+                    } catch (JSONException e) {
+                        Log.e(TAG, e.getMessage());
+                    }
+                }
+
+                @Override
+                public void jsonReceivedFailed() {
 
                 }
             });

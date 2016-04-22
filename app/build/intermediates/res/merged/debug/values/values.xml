@@ -10,6 +10,10 @@
     <string name="find_contact">Add a Person to Trip</string>
     <string name="hello_world">Hello world!</string>
     <string name="location">Select location...</string>
+    <string name="start_trip">Start Trip</string>
+    <string name="trip_update">You have notification</string>
+    <string name="trip_update_text">Location updated</string>
+    <string name="trip_update_title">Notification</string>
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in

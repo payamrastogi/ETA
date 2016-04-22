@@ -19,7 +19,7 @@ import java.io.UnsupportedEncodingException;
 /**
  * Created by payamrastogi on 4/9/16.
  */
-class HttpTask extends AsyncTask<JSONObject, Void, String>
+public class HttpTask extends AsyncTask<JSONObject, Void, String>
 {
     public static final String url = "http://cs9033-homework.appspot.com/";
     public static final String TAG = "HttpTask";
@@ -76,11 +76,4 @@ class HttpTask extends AsyncTask<JSONObject, Void, String>
         else
             jsonListener.jsonReceivedFailed();
     }
-
-    interface JSONListener
-    {
-        void jsonReceivedSuccessfully(String json);
-        void jsonReceivedFailed();
-    }
-
 }
