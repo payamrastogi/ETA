@@ -65,6 +65,7 @@ public class TripHistoryActivity extends Activity
     public void startViewTripActivity(View view)
     {
         Long tripId = (Long)view.getTag();
+        Log.d(TAG, "View Trip ID: "+tripId);
         TripDatabaseHelper tripDatabaseHelper = new TripDatabaseHelper(this);
         Location location = tripDatabaseHelper.getLocationById(tripId);
         List<Person> persons = tripDatabaseHelper.getPersonsById(tripId);

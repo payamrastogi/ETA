@@ -14,6 +14,7 @@ public class Trip implements Parcelable {
 	private String name;
 	private String description;
 	private String date;
+	private String status;
 	private Location location;
 	private List<Person> persons;
 	
@@ -42,6 +43,7 @@ public class Trip implements Parcelable {
 	 * Model fields.
 	 */
 	public Trip(Parcel p) {
+		this.id = p.readLong();
 		this.name = p.readString();
 		this.description = p.readString();
 		this.date = p.readString();
@@ -74,6 +76,7 @@ public class Trip implements Parcelable {
 	 */
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeLong(id);
 		dest.writeString(name);
 		dest.writeString(description);
 		dest.writeString(date);
@@ -126,5 +129,15 @@ public class Trip implements Parcelable {
 
 	public String getDate() {
 		return date;
+	}
+
+	public void setStatus(String status)
+	{
+		this.status = status;
+	}
+
+	public String getStatus()
+	{
+		return this.status;
 	}
 }

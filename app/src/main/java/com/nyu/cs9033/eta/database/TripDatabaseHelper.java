@@ -41,6 +41,7 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
     private static final String COLUMN_LOC_PROVIDER = "provider";
 
     private static final String STATUS_ACTIVE = "ACTIVE";
+    private static final String STATUS_NOT_ACTIVE = "NOT ACTIVE";
 
     public TripDatabaseHelper(Context context)
     {
@@ -89,9 +90,11 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
     {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_TRIP_ID, trip.getId());
         contentValues.put(COLUMN_TRIP_NAME, trip.getName());
         contentValues.put(COLUMN_TRIP_DATE, trip.getDate());
         contentValues.put(COLUMN_TRIP_DESCRIPTION, trip.getDescription());
+        contentValues.put(COLUMN_TRIP_STATUS, STATUS_NOT_ACTIVE);
         long id = db.insert(TABLE_TRIP, null, contentValues);
 
         contentValues = new ContentValues();
@@ -118,17 +121,19 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
 
         String selectQuery = "SELECT  * FROM " + TABLE_NAME;
         SQLiteDatabase db  = this.getReadableDatabase();
-        Cursor cursor      = db.rawQuery(selectQuery, null);
-        String[] data      = null;
+        Cursor cursor  = db.rawQuery(selectQuery, null);
         List<Trip> trips = new ArrayList<Trip>();
         if (cursor.moveToFirst())
         {
             do
             {
+                int index = 0;
                 Trip trip = new Trip();
-                trip.setId(cursor.getLong(0));
-                trip.setName(cursor.getString(1));
-                trip.setDate(cursor.getString(2));
+                trip.setId(cursor.getLong(index));
+                trip.setName(cursor.getString(++index));
+                trip.setDescription(cursor.getString(++index));
+                trip.setDate(cursor.getString(++index));
+                trip.setStatus(cursor.getString(++index));
                 trips.add(trip);
             } while (cursor.moveToNext());
         }
@@ -168,10 +173,11 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
         {
             int index = 0;
             trip = new Trip();
-            trip.setId(cursor.getInt(index));
+            trip.setId(cursor.getLong(index));
             trip.setName(cursor.getString(++index));
             trip.setDescription(cursor.getString(++index));
             trip.setDate(cursor.getString(++index));
+            trip.setStatus(cursor.getString(++index));
         }
         cursor.close();
         return trip;
@@ -200,12 +206,12 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
 
     }
 
-    public void updateTripStatus(long tripId)
+    public void updateTripStatus(long tripId, String status)
     {
         final String TABLE_NAME = "trip";
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_TRIP_STATUS, STATUS_ACTIVE);
+        contentValues.put(COLUMN_TRIP_STATUS, status);
         String[] args = new String[]{tripId+""};
         String whereClause = COLUMN_TRIP_ID+ " =?";
         db.update(TABLE_NAME, contentValues, whereClause, args);
@@ -228,6 +234,7 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
                 trip.setName(cursor.getString(++index));
                 trip.setDescription(cursor.getString(++index));
                 trip.setDate(cursor.getString(++index));
+                trip.setStatus(cursor.getString(++index));
                 trips.add(trip);
             } while (cursor.moveToNext());
         }

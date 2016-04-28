@@ -61,4 +61,42 @@
             android:text="@string/arrived"
             android:layout_column="2"/>
     </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="Joe Smith"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1" />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:id="@+id/viewJoeTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1" />
+        <TextView
+            android:id="@+id/viewJoeDistance"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5" />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:text="John Doe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1" />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:id="@+id/viewJohnTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1" />
+        <TextView
+            android:id="@+id/viewJohnDistance"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5" />
+    </TableRow>
+
 </TableLayout>

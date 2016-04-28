@@ -402,8 +402,8 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 							JSONObject jsonObject = new JSONObject(json);
 							if (jsonObject.getInt("response_code") == 0)
 							{
-								Log.d(TAG, "Returned Trip ID:"+jsonObject.getInt("trip_id"));
-								recentTrip.setId(jsonObject.getInt("trip_id"));
+								Log.d(TAG, "Returned Trip ID:"+jsonObject.getLong("trip_id"));
+								recentTrip.setId(jsonObject.getLong("trip_id"));
 								new DBInsertTask().execute();
 							}
 						} catch (JSONException e) {
