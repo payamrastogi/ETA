@@ -2,10 +2,15 @@ package com.nyu.cs9033.eta.controllers;
 
 import com.nyu.cs9033.eta.models.Trip;
 import com.nyu.cs9033.eta.R;
+import com.nyu.cs9033.eta.service.IBaseGpsListener;
 
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 
 public class MainActivity extends Activity
@@ -18,6 +23,7 @@ public class MainActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
 	}
 
 	/**

@@ -8,6 +8,10 @@
         "source": "/Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/res/layout/clearable_edit_text.xml"
     },
     {
+        "merged": "/Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/build/intermediates/res/merged/debug/layout/activity_active_trips.xml",
+        "source": "/Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/res/layout/activity_active_trips.xml"
+    },
+    {
         "merged": "/Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/build/intermediates/res/merged/debug/layout/activity_main.xml",
         "source": "/Users/payamrastogi/Dropbox/NYU/Final/Android/ETA_CS9033_Rastogi_Payam/app/src/main/res/layout/activity_main.xml"
     },

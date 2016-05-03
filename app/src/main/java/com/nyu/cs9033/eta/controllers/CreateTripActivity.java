@@ -1,18 +1,24 @@
 package com.nyu.cs9033.eta.controllers;
 
 import com.nyu.cs9033.eta.database.TripDatabaseHelper;
+import com.nyu.cs9033.eta.http.HttpTask;
+import com.nyu.cs9033.eta.http.JSONListener;
+import com.nyu.cs9033.eta.http.Rest;
 import com.nyu.cs9033.eta.models.Location;
 import com.nyu.cs9033.eta.models.Person;
 import com.nyu.cs9033.eta.models.Trip;
-import com.nyu.cs9033.eta.R;
 import com.nyu.cs9033.eta.widget.AdjustableLayout;
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.InputType;
@@ -35,8 +41,15 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import com.nyu.cs9033.eta.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class CreateTripActivity extends Activity implements View.OnClickListener
 {
@@ -56,7 +69,7 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 	private static final int RESULT_PICK_LOCATION = 85501;
 
 	private Trip recentTrip;
-	private List<Person> personList;
+	private List<Person> persons;
 	private Location location;
 
 	@Override
@@ -92,11 +105,9 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 		txtTripDate.setInputType(InputType.TYPE_NULL);
 		btnPickContact = (Button) findViewById(R.id.btnPickContact);
 		editTextPickLocation = (EditText) findViewById(R.id.editTextPickLocation);
-		//clearableEditTextLocation = (ClearableEditText) findViewById(R.id.clearableEditTextLocation);
 		btnPickContact.setOnClickListener(this);
 		editTextPickLocation.setOnClickListener(this);
-		//clearableEditTextLocation.setOnClickListener(this);
-		personList = new ArrayList<Person>();
+		persons = new ArrayList<Person>();
 		adjustableLayout = (AdjustableLayout)findViewById(R.id.container);
 		setDateTimeField();
 	}
@@ -108,13 +119,13 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 	 * @return The Trip as represented
 	 * by the View.
 	 */
-	public Trip createTrip()
+	/*public Trip createTrip()
 	{
 		String tripName = txtTripName.getText().toString();
 		String tripDescription = txtTripDescription.getText().toString();
 		String tripDate = txtTripDate.getText().toString();
 		return new Trip(tripName, tripDescription, tripDate);
-	}
+	}*/
 
 	/**
 	 * For HW2 you should treat this method as a
@@ -130,11 +141,8 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 	 */
 	public boolean saveTrip()
 	{
-		TripDatabaseHelper db = new TripDatabaseHelper(this);
-
 		Intent result = new Intent();
 		result.putExtra("recentTrip", recentTrip);
-		db.insertTrip(recentTrip, location, personList);
 		setResult(RESULT_OK, result);
 		finish();
 		return false;
@@ -203,9 +211,11 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
 		// Take appropriate action for each action item click
-		switch (item.getItemId()) {
+		switch (item.getItemId())
+		{
 			case R.id.action_save:
 				String tripName = txtTripName.getText().toString();
 				String tripDescription = txtTripDescription.getText().toString();
@@ -231,10 +241,11 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 				}
 				if (invalid == false)
 				{
-					recentTrip = createTrip();
-					saveTrip();
+					this.recentTrip = new Trip(tripName, tripDescription, tripDate);
+					createTrip();
+					return true;
 				}
-				return true;
+				return false;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
@@ -300,7 +311,7 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 			*/
 			Person p = new Person();
 			p.setName(name);
-			personList.add(p);
+			persons.add(p);
 		}
 		catch (Exception e)
 		{
@@ -347,6 +358,92 @@ public class CreateTripActivity extends Activity implements View.OnClickListener
 			adjustableLayout.addView(newView);
 		}else {
 			Toast.makeText(this,"Enter some text",Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	public void createTrip()
+	{
+        /*
+            {"command": "CREATE_TRIP", "location": [“location name”,
+             ”address”, ”latitude”, ”longitude”], "datetime": 1382584629, "people": ["John
+              Doe", "Joe Smith"]}
+        */
+		ConnectivityManager connectivityManager = (ConnectivityManager)
+				getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+		if(networkInfo != null && networkInfo.isConnected())
+		{
+			JSONObject objRequest = new JSONObject();
+			try
+			{
+				objRequest.put("command", "CREATE_TRIP");
+
+				JSONArray objLocation = new JSONArray();
+				objLocation.put(location.getName());
+				objLocation.put(location.getAddress());
+				objLocation.put(location.getLatitude());
+				objLocation.put(location.getLongitude());
+				objRequest.put("location", objLocation);
+				objRequest.put("datetime", new Date().getTime());
+				JSONArray objPerson = new JSONArray();
+				for(Person person: persons)
+					objPerson.put(person);
+
+				objRequest.put("people", objPerson);
+
+				HttpTask httpTask  = new HttpTask();
+				httpTask.setJsonListener(new JSONListener()
+				{
+					@Override
+					public void jsonReceivedSuccessfully(String json)
+					{
+						try
+						{
+							JSONObject jsonObject = new JSONObject(json);
+							if (jsonObject.getInt("response_code") == 0)
+							{
+								Log.d(TAG, "Returned Trip ID:"+jsonObject.getLong("trip_id"));
+								recentTrip.setId(jsonObject.getLong("trip_id"));
+								new DBInsertTask().execute();
+							}
+						} catch (JSONException e) {
+							Log.e(TAG, e.getMessage());
+						}
+					}
+
+					@Override
+					public void jsonReceivedFailed()
+					{
+
+					}
+				});
+				httpTask.execute(objRequest);
+			}
+			catch(JSONException e)
+			{
+				Log.e(TAG, e.getMessage());
+			}
+		}
+		else
+		{
+			Toast.makeText(this, "Check Network Connection!", Toast.LENGTH_SHORT );
+		}
+	}
+
+	private class DBInsertTask extends AsyncTask<Void, Void, Void>
+	{
+		protected Void doInBackground(Void... voids)
+		{
+			TripDatabaseHelper db = new TripDatabaseHelper(CreateTripActivity.this);
+			db.insertTrip(recentTrip, location, persons);
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void v)
+		{
+			Log.d(TAG, "DBInsertTask onPostExecute");
+			saveTrip();
 		}
 	}
 
